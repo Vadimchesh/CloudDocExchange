@@ -1,13 +1,39 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SVGProps } from "react";
+import { ChangeEvent, SVGProps, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 
 export default function UploadAria() {
+  const [selectedFiles, setSelectedFiles] = useState<File[] | null>(null);
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event);
+    if (event.target.files && event.target.files.length > 0) {
+      const files = Array.from(event.target.files);
+      console.log(files);
+      setSelectedFiles(files);
+    }
+  };
+
+  const handleRemoveFile = (index: number) => {
+    setSelectedFiles((prevFiles) => {
+      if (prevFiles === null) {
+        return [];
+      }
+      return Array.from(prevFiles).filter((_, i) => i !== index);
+    });
+  };
+
   return (
     <div className="w-full max-w-lg mx-auto">
       <div className="border-2 border-dashed border-gray-300 rounded-md p-8 text-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
-        <Input className="sr-only" id="file-upload" type="file" />
+        <Input
+          className="sr-only"
+          id="file-upload"
+          type="file"
+          multiple
+          onChange={handleFileChange}
+        />
         <label
           className="flex flex-col items-center justify-center space-y-4"
           htmlFor="file-upload"
@@ -18,16 +44,23 @@ export default function UploadAria() {
           </span>
         </label>
       </div>
-      <div className="mt-6">
-        <div className="flex items-center justify-between border-b pb-3">
-          <span className="text-base text-gray-500 dark:text-gray-400">
-            filename.jpg
-          </span>
-          <Button size="md" variant="ghost">
-            Remove
-          </Button>
-        </div>
-      </div>
+      {selectedFiles &&
+        selectedFiles.map((file, index) => (
+          <div className="mt-6" key={index}>
+            <div className="flex items-center justify-between border-b pb-3">
+              <span className="text-base text-gray-500 dark:text-gray-400">
+                {file.name}
+              </span>
+              <Button
+                size="lg"
+                variant="ghost"
+                onClick={() => handleRemoveFile(index)}
+              >
+                Remove
+              </Button>
+            </div>
+          </div>
+        ))}
       <div className="mt-8">
         <Button>Upload</Button>
       </div>
