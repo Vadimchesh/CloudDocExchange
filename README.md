@@ -20,4 +20,10 @@ in progress
 
 ## deployment
 
-AWS CDK
+```bash
+# build client
+cd client
+npm run build
+# deploy client
+npm run cdk deploy
+```
