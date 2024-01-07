@@ -10,11 +10,11 @@
 
 CloudDocExchange is a tool to exchange large documents between cloud services.
 
-## client
+## Client
 
 Disided to use React for the client. The client is located in the client folder. To run the client, you need to install the dependencies with `npm install` and then run `npm start`. The client will be available at `localhost:3000`.
 
-### client structure
+### Client Structure
 
 ```bash
 client
@@ -39,11 +39,24 @@ client
    |-- vite.config.ts (vite config)
 ```
 
-## server
+### Static Site Stack
 
-in progress
+This stack is responsible for deploying a static website using AWS services. It uses the AWS CDK (Cloud Development Kit) to define the infrastructure in TypeScript.
 
-## deployment
+Key components of the stack include:
+
+- **S3 Bucket**: This is where the static website files are stored. The bucket is configured to block all public access and uses S3 managed encryption.
+
+- **CloudFront Distribution**: This is the CDN (Content Delivery Network) for the static website. It's configured to serve the website over HTTPS only and uses a cache policy for optimized caching.
+
+- **Origin Access Control**: This is used to control access to the S3 bucket from the CloudFront distribution. It replaces the legacy Origin Access Identity.
+
+- **Bucket Deployment**: This deploys the static website files from the local `./dist` directory to the S3 bucket and invalidates the CloudFront cache.
+
+The stack also defines the removal policies for the CloudFront distribution and the Origin Access Control, and outputs the S3 bucket URL and the CloudFront URL.
+
+
+### Deploying the Static Site
 
 ```bash
 # build client
@@ -54,3 +67,7 @@ npm run cdk deploy
 ```
 
 Deployed version https://d3bjw047xpqkuj.cloudfront.net/
+
+## Server
+
+in progress
