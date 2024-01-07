@@ -14,6 +14,31 @@ CloudDocExchange is a tool to exchange large documents between cloud services.
 
 Disided to use React for the client. The client is located in the client folder. To run the client, you need to install the dependencies with `npm install` and then run `npm start`. The client will be available at `localhost:3000`.
 
+### client structure
+
+```bash
+client
+   |-- cdk
+   |   |-- StaticSiteConstruct.ts (cdk construct for static site)
+   |   |-- index.ts (cdk entry point)
+   |-- components.json (UI components)
+   |-- esbuild.config.mjs (esbuild config for CDK)
+   |-- index.html (entry point website)
+   |-- public
+   |-- src
+   |   |-- App.tsx
+   |   |-- components (UI components)
+   |   |   |-- ui
+   |   |-- index.css
+   |   |-- lib
+   |   |-- main.tsx (entry point TSX)
+   |-- tailwind.config.js
+   |-- tsconfig.cdk.json (tsconfig for CDK)
+   |-- tsconfig.json (tsconfig for client)
+   |-- tsconfig.node.json (tsconfig for node)
+   |-- vite.config.ts (vite config)
+```
+
 ## server
 
 in progress
@@ -27,3 +52,5 @@ npm run build
 # deploy client
 npm run cdk deploy
 ```
+
+Deployed version https://d3bjw047xpqkuj.cloudfront.net/
