@@ -7,10 +7,8 @@ export default function UploadAria() {
   const [selectedFiles, setSelectedFiles] = useState<File[] | null>(null);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
     if (event.target.files && event.target.files.length > 0) {
       const files = Array.from(event.target.files);
-      console.log(files);
       setSelectedFiles(files);
     }
   };

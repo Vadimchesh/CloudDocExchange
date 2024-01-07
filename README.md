@@ -12,7 +12,7 @@ CloudDocExchange is a tool to exchange large documents between cloud services.
 
 ## Client
 
-Disided to use React for the client. The client is located in the client folder. To run the client, you need to install the dependencies with `npm install` and then run `npm start`. The client will be available at `localhost:3000`.
+Disided to use React for the client. The client is located in the client folder. To run the client, you need to install the dependencies with `npm install` and then run `npm run dev`. The client will be available at `localhost:3000`.
 
 ### Client Structure
 

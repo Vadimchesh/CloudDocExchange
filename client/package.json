@@ -22,6 +22,7 @@
     "aws-cdk-lib": "^2.118.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "jotai": "^2.6.1",
     "lucide-react": "^0.304.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
