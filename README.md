@@ -55,7 +55,6 @@ Key components of the stack include:
 
 The stack also defines the removal policies for the CloudFront distribution and the Origin Access Control, and outputs the S3 bucket URL and the CloudFront URL.
 
-
 ### Deploying the Static Site
 
 ```bash
@@ -70,4 +69,6 @@ Deployed version https://d3bjw047xpqkuj.cloudfront.net/
 
 ## Server
 
-in progress
+Server: Fastify + TypeScript
+
+To run the server, you need to install the dependencies with `npm install` and then run `npm run dev`. The server will be available at `localhost:3000`.
