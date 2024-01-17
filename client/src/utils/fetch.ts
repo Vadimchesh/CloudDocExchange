@@ -1,14 +1,18 @@
 import { atomWithQuery } from "jotai-tanstack-query";
 
 type Files = {
-  id: number;
-  name: string;
-  url: string;
+  files: [
+    {
+      id: string;
+      name: string;
+      url: string;
+    }
+  ];
 };
 
 const filesAtom = atomWithQuery(() => ({
   queryKey: ["users"],
-  queryFn: async (): Promise<Files[]> => {
+  queryFn: async (): Promise<Files> => {
     const res = await fetch("http://127.0.0.1:3000/api/files");
     return res.json();
   },
