@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources:
+  ServerCloudExchangeEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-062a49a8152e4c031
+      InstanceType: t2.micro
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          sudo yum update -y
+          sudo yum install -y nodejs npm
+          git clone https://github.com/Vadimchesh/CloudDocExchange
+          cd CloudExchange/server
+          npm start
+
+  CloudExchangeLoadBalancer:
+    Type: "AWS::ElasticLoadBalancing::LoadBalancer"
+    Properties:
+      AvailabilityZones: !GetAZs ""
+      Listeners:
+        - LoadBalancerPort: 80
+          InstancePort: 80
+          Protocol: HTTP
+      HealthCheck:
+        Target: "HTTP:80/"
+        HealthyThreshold: "3"
+        UnhealthyThreshold: "5"
+        Interval: "30"
+        Timeout: "5"
+      Instances:
+        - !Ref ServerCloudExchangeEC2Instance
+
+  CloudExchangSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: Enable SSH and HTTP access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      VpcId: vpc-0a573e54e1577ad57
+
+  MySecurityGroupIngress:
+    Type: "AWS::EC2::SecurityGroupIngress"
+    Properties:
+      GroupId: !Ref CloudExchangSecurityGroup
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      CidrIp: 0.0.0.0/0
+
+Outputs:
+  ApplicationURL:
+    Description: URL of the deployed Node.js application
+    Value: !Sub http://${CloudExchangeLoadBalancer.DNSName}/
