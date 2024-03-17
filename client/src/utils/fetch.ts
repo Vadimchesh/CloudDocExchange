@@ -1,4 +1,4 @@
-import { atomWithQuery } from "jotai-tanstack-query";
+import { atomWithMutation, atomWithQuery } from "jotai-tanstack-query";
 
 type Files = {
   files: [
@@ -10,12 +10,20 @@ type Files = {
   ];
 };
 
-const filesAtom = atomWithQuery(() => ({
-  queryKey: ["users"],
+export const filesAtom = atomWithQuery(() => ({
+  queryKey: ["files"],
   queryFn: async (): Promise<Files> => {
-    const res = await fetch("http://127.0.0.1:3000/api/files");
+    const res = await fetch("http://127.0.0.1:3000/block");
     return res.json();
   },
 }));
 
-export default filesAtom;
+export const filesMutation = atomWithMutation(() => ({
+  mutationKey: ["files"],
+  mutationFn: async ({ files }: { files: FormData }) => {
+    await fetch(`http://127.0.0.1:3000/block`, {
+      method: "POST",
+      body: files,
+    });
+  },
+}));

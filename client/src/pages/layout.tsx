@@ -2,6 +2,7 @@ import { MainNav } from "@/components/main-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
 
 const Layout: FC = () => {
   return (
@@ -13,6 +14,7 @@ const Layout: FC = () => {
       <div className="border-b"></div>
       <div className="flex alflex justify-center items-center h-screen">
         <Outlet />
+        <Toaster />
       </div>
     </div>
   );

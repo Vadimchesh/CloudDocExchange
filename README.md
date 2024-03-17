@@ -69,6 +69,6 @@ Deployed version https://d3bjw047xpqkuj.cloudfront.net/
 
 ## Server
 
-Server: Fastify + TypeScript
+Server: NestJS + TypeScript
 
-To run the server, you need to install the dependencies with `npm install` and then run `npm run dev`. The server will be available at `localhost:3000`.
+To run the server, you need to install the dependencies with `npm install` and then run `npm run start:dev`. The server will be available at `localhost:3000`.

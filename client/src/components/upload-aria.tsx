@@ -1,9 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ChangeEvent, SVGProps, useState } from "react";
+import { ChangeEvent, SVGProps, useEffect, useState } from "react";
 import { JSX } from "react/jsx-runtime";
+import { useAtom } from "jotai";
+import { filesMutation } from "@/utils/fetch";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { toast } from "sonner";
 
 export default function UploadAria() {
+  const [{ mutate, status }] = useAtom(filesMutation);
   const [selectedFiles, setSelectedFiles] = useState<File[] | null>(null);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +26,27 @@ export default function UploadAria() {
       return Array.from(prevFiles).filter((_, i) => i !== index);
     });
   };
+
+  const handleUploadFiles = () => {
+    const formData = new FormData();
+
+    if (selectedFiles) {
+      selectedFiles.forEach((file) => {
+        formData.append("files", file);
+      });
+    }
+    mutate({ files: formData });
+  };
+
+  useEffect(() => {
+    if (status === "success") {
+      setSelectedFiles(null);
+      toast("Files success added");
+    }
+    if (status === "error") {
+      toast("Something go wrong");
+    }
+  }, [status]);
 
   return (
     <div className="w-full max-w-lg mx-auto">
@@ -60,7 +86,14 @@ export default function UploadAria() {
           </div>
         ))}
       <div className="mt-8">
-        <Button>Upload</Button>
+        {status === "pending" ? (
+          <Button disabled>
+            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+            Please wait
+          </Button>
+        ) : (
+          <Button onClick={handleUploadFiles}>Upload</Button>
+        )}
       </div>
     </div>
   );

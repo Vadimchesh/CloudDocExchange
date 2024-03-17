@@ -1,5 +1,5 @@
 import { FC } from "react";
-import filesAtom from "@/utils/fetch";
+import { filesAtom } from "@/utils/fetch";
 import { useAtom } from "jotai";
 
 const Files: FC = () => {
@@ -8,7 +8,8 @@ const Files: FC = () => {
   return (
     <div>
       {isSuccess &&
-        data.files.map((file) => (
+        // fix ? build version get error
+        data?.files?.map((file) => (
           <ul key={file.id}>
             <li>{file.id}</li>
             <li>{file.name}</li>
