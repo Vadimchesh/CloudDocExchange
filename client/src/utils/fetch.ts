@@ -13,7 +13,7 @@ type Files = {
 export const filesAtom = atomWithQuery(() => ({
   queryKey: ["files"],
   queryFn: async (): Promise<Files> => {
-    const res = await fetch("http://127.0.0.1:3000/block");
+    const res = await fetch("http://127.0.0.1:3000/api/block");
     return res.json();
   },
 }));
@@ -21,7 +21,7 @@ export const filesAtom = atomWithQuery(() => ({
 export const filesMutation = atomWithMutation(() => ({
   mutationKey: ["files"],
   mutationFn: async ({ files }: { files: FormData }) => {
-    await fetch(`http://127.0.0.1:3000/block`, {
+    await fetch(`http://127.0.0.1:3000/api/block`, {
       method: "POST",
       body: files,
     });
