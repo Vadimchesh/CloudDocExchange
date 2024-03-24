@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   Res,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { BlockService } from './block.service';
@@ -36,13 +37,13 @@ export class BlockController {
     return this.blockService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.blockService.findOne(+id);
+  @Get(':fileName')
+  findOne(@Param('fileName') fileName: string) {
+    return this.blockService.getPresignedUrl(fileName);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBlockDto: UpdateBlockDto) {
+  update() {
     return 'This action updates a #${id} block';
   }
 
