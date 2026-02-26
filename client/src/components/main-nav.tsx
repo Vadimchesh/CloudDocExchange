@@ -12,6 +12,12 @@ export function MainNav({
     >
       <Link
         to="/"
+        className="text-lg font-semibold tracking-tight bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent"
+      >
+        lokumly
+      </Link>
+      <Link
+        to="/"
         className="text-sm font-medium transition-colors hover:text-primary"
       >
         Home
